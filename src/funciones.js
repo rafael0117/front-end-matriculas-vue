@@ -42,5 +42,19 @@ export function confirmar(urlConSlash,id,titulo,mensaje){
 }
 
 export function enviarSolicitud(metodo,parametros,url,mensaje){
-    
+    axios({method:metodo,url:url,data:parametros}).then(function(res){
+        var estado = res.status;
+        if(estado == 200){
+            mostrarAlerta(mensaje,'success');
+            window.setTimeout(function(){
+                window.location.href='/'
+            },1000);
+        }
+        else{
+            mostrarAlerta('No se pudo recuperar la respuesta','error')
+        }
+    }).catch(function(error){
+            mostrarAlerta('Error de servidor','error',error)
+    });
+
 }
