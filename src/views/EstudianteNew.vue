@@ -21,6 +21,7 @@
                 v-else
                 src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-64.png"
                 alt="foto"
+                id="fotoimg"
                 class="img-thumbnail rounded-circle shadow-sm"
                 style="width: 100px; height: 100px; object-fit: cover;"
               />
@@ -38,7 +39,7 @@
 
             <div class="mb-3">
               <label class="form-label fw-semibold">Imagen</label>
-              <input type="file" accept="image/png, image/jpeg, image/gif" class="form-control" placeholder="Ingrese correo" />
+              <input v-on:change="previsualizarFoto" type="file" accept="image/png, image/jpeg, image/gif" class="form-control" placeholder="Ingrese correo" />
             </div>
 
             <div class="d-grid">
