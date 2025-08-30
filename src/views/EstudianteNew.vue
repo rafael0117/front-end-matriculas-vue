@@ -29,12 +29,16 @@
             <!-- Ejemplo de campos -->
             <div class="mb-3">
               <label class="form-label fw-semibold">Nombre</label>
-              <input type="text" class="form-control" placeholder="Ingrese nombre" />
+              <input type="text" id="nombre" class="form-control" placeholder="Ingrese nombre" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Apellido</label>
+              <input type="text" id="apellido" class="form-control" placeholder="Ingrese apellido" />
             </div>
 
             <div class="mb-3">
-              <label class="form-label fw-semibold">Correo</label>
-              <input type="email" class="form-control" placeholder="Ingrese correo" />
+              <label class="form-label fw-semibold">Imagen</label>
+              <input type="file" accept="image/png, image/jpeg, image/gif" class="form-control" placeholder="Ingrese correo" />
             </div>
 
             <div class="d-grid">
@@ -51,15 +55,35 @@
 
 <script>
 import axios from "axios";
-import { confirmar } from "../funciones";
+import { mostrarAlerta , confirmar } from "../funciones";
 
 export default {
   data() {
     return {
-      estudiantes: null,
-      cargando: false,
+      nombre:'',
+      apellido:'',
+      foto:'',
+      url:'http://academico-backend.test/api/v1/estudiantes',
+      cargando:false
      
     };
   },
-};
+    methods: {
+    guardar() {
+      this.cargando = true;
+      
+    },
+    previsualizarFoto(event){
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function(){
+            var miFoto = document.getElementById('fotoimg');
+            miFoto.src = reader.result;
+            this.foto =  miFoto.src;
+        
+        }
+    }
+  }
+  
+}
 </script>
