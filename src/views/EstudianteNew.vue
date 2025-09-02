@@ -72,6 +72,8 @@ export default {
     methods: {
     guardar() {
       this.cargando = true;
+
+      
       
     },
     previsualizarFoto(event){
