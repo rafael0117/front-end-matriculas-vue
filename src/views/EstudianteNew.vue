@@ -7,7 +7,7 @@
           Registrar Estudiante
         </div>
         <div class="card-body p-4">
-          <form>
+          <form v-on:submit="guardar()">
             <div class="text-center mb-3">
               <img
                 v-if="foto"
@@ -30,11 +30,11 @@
             <!-- Ejemplo de campos -->
             <div class="mb-3">
               <label class="form-label fw-semibold">Nombre</label>
-              <input type="text" id="nombre" class="form-control" placeholder="Ingrese nombre" />
+              <input type="text" id="nombre" v-model="nombre" class="form-control" placeholder="Ingrese nombre" />
             </div>
             <div class="mb-3">
               <label class="form-label fw-semibold">Apellido</label>
-              <input type="text" id="apellido" class="form-control" placeholder="Ingrese apellido" />
+              <input type="text" id="apellido" v-model="apellido" class="form-control" placeholder="Ingrese apellido" />
             </div>
 
             <div class="mb-3">
@@ -56,7 +56,7 @@
 
 <script>
 import axios from "axios";
-import { mostrarAlerta , confirmar } from "../funciones";
+import { mostrarAlerta , confirmar, enviarSolicitud } from "../funciones";
 
 export default {
   data() {
@@ -71,9 +71,23 @@ export default {
   },
     methods: {
     guardar() {
-      this.cargando = true;
+         event.preventDefault();
+        var miFoto = document.getElementById('fotoimg');
+       
+        this.foto = miFoto.src;
+        if(this.nombre.trim()===''){
+            mostrarAlerta('Ingrese un nombre','warning','nombre');
+        }
+        else if(this.apellido.trim()===''){
+            mostrarAlerta('Ingrese un apellido','warning','apellido');
+        }
+        else{
+            var parametros = {nombre:this.nombre.trim(),nombre:this.nombre.trim(),foto:this.foto.trim(),}
+            enviarSolicitud('POST',parametros,this.url,'Estudiante Registrado')
 
-      
+        }
+
+
       
     },
     previsualizarFoto(event){
