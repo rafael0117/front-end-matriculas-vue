@@ -97,7 +97,8 @@ export default {
             var miFoto = document.getElementById('fotoimg');
             miFoto.src = reader.result;
             this.foto =  miFoto.src;
-        
+          
+            
         }
     }
   }
