@@ -1,18 +1,23 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-export function mostrarAlerta(titulo,icono,foco=""){
-    if(foco!=''){
-        document.getElementById(foco).focus();
+export function mostrarAlerta(titulo, icono, foco = "") {
+    // Validar antes de hacer focus
+    if (foco !== "") {
+        const campo = document.getElementById(foco);
+        if (campo) {
+            campo.focus();
+        }
     }
 
     Swal.fire({
-        title:titulo,
-        icon:icono,
-        customClass:{confirmButton:'btn btn-primary',popup:'animated zoonIn'},
-        buttonsStyling:false
-    })
+        title: titulo,
+        icon: icono,
+        customClass: { confirmButton: 'btn btn-primary', popup: 'animated zoomIn' },
+        buttonsStyling: false
+    });
 }
+
 export function confirmar(urlConSlash,id,titulo,mensaje){
     var url= urlConSlash+id;
     const swalWithBootstrapButton = Swal.mixin({
