@@ -44,7 +44,7 @@
 
             <div class="d-grid">
               <button type="submit" class="btn btn-success">
-                <i class="bi bi-save me-2"></i> Guardar
+                <i class="bi bi-save me-2"></i> Guardar cambios
               </button>
             </div>
           </form>
@@ -56,11 +56,13 @@
 
 <script>
 import axios from "axios";
-import { mostrarAlerta , confirmar, enviarSolicitud } from "../funciones";
+import { mostrarAlerta , enviarSolicitud } from "../funciones";
+import { useRoute } from "vue-router";
 
 export default {
   data() {
     return {
+      id:0,
       nombre:'',
       apellido:'',
       foto:'',
@@ -69,8 +71,25 @@ export default {
      
     };
   },
+  mounted(){
+    const route = useRoute();
+    this.id = route.params.id;
+    this.url += '/'+this.id;
+    this.getEstudiante();
+
+  },
     methods: {
-    guardar() {
+    getEstudiante(){
+      axios.get(this.url).then(
+        res => {
+          this.nombre = res.data.data.nombre;
+          this.apellido = res.data.data.apellido;
+          this.foto = res.data.data.foto;
+        }
+      );
+
+    },
+    actualizar() {
          event.preventDefault();
         var miFoto = document.getElementById('fotoimg');
        
@@ -82,8 +101,8 @@ export default {
             mostrarAlerta('Ingrese un apellido','warning','apellido');
         }
         else{
-            var parametros = {nombre:this.nombre.trim(),nombre:this.nombre.trim(),foto:this.foto.trim(),}
-            enviarSolicitud('POST',parametros,this.url,'Estudiante Registrado')
+            var parametros = {nombre:this.nombre.trim(),apellido:this.apellido.trim(),foto:this.foto.trim(),}
+            enviarSolicitud('PUT',parametros,this.url,'Estudiante Actualizado')
 
         }
 
@@ -98,9 +117,10 @@ export default {
             miFoto.src = reader.result;
             this.foto =  miFoto.src;
           
-            
+
         }
     }
+
   }
   
 }

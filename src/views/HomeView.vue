@@ -44,11 +44,11 @@
               <td class="text-truncate" style="max-width:120px">{{ est.apellido }}</td>
               <td>{{ new Date(est.created_at).toLocaleDateString('es-ES') }}</td>
               <td>
-                <router-link :to="{ path: 'view/' + est.id }" class="btn btn-info btn-sm me-1">
+                <router-link :to="{ path: 'viewE/' + est.id }" class="btn btn-info btn-sm me-1">
                   <i class="fa-solid fa-eye"></i>
                 </router-link>
                 &nbsp;
-                <router-link :to="{ path: 'edit/' + est.id }" class="btn btn-warning btn-sm">
+                <router-link :to="{ path: 'editE/' + est.id }" class="btn btn-warning btn-sm">
                   <i class="fa-solid fa-edit"></i>
                 </router-link>
                  &nbsp;
